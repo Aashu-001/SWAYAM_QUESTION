@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int minimumDeletions(vector<int>& nums) {
+        int mn_ind = -1;
+        int mx_ind = -1;
+        int mx_num = INT_MIN;
+        int mn_num = INT_MAX;
+        for(int  i=0;i<nums.size();i++){
+            if(nums[i] > mx_num){
+                mx_num = nums[i];
+                mx_ind = i;
+            }
+            if(nums[i] < mn_num){
+                mn_num = nums[i];
+                mn_ind = i;
+            }
+        }
+       int end ;
+       int beg;
+       if(mx_ind > mn_ind){
+        end = mx_ind;
+        beg = mn_ind;
+       }
+       else{
+        beg = mx_ind;
+        end = mn_ind;
+       }
+      
+       if((beg+1+nums.size()-end < nums.size() - beg)&&(beg+1+nums.size()-end < (end+1))){
+        return beg+1+nums.size()-end;
+       }
+       else if((nums.size() - beg < beg+1+nums.size()-end) && (nums.size() - beg < (end+1))){
+        return nums.size() - beg;
+       }
+       else{
+        return end+1;
+       }
+       return -1;
+    }
+   
+    
+};
