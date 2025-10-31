@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void Count_Alphabet(string str){
+    int len_str = str.length();
+    map<char,int>mp;
+    for(char ch : str){
+        mp[ch]++;
+    }
+
+    for(auto & c : mp){
+        cout<<c.first<<c.second<<" ";
+    }
+    return ;
+
+}
+
+int main(){
+    string str;
+    cin>>str;
+
+    Count_Alphabet(str);
+}
