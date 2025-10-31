@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findPartition(vector<int>&nums,int beg,int end){
+        int pivot = nums[beg];
+        int i = beg+1;
+        int j  =end;
+        while(true){
+          while(i<j &&  nums[i] <= pivot) i++;
+          while( nums[j] > pivot) j--;
+          if(i>=j) break;
+          swap(nums[i],nums[j]);
+        }
+        swap(nums[j],nums[beg]);
+        return j;
+    }
+    void quickSort(vector<int>&nums,int beg,int end){
+       if(beg<end){
+            int partion = findPartition(nums,beg,end);
+            quickSort(nums,beg,partion-1);
+            quickSort(nums,partion+1,end);
+        }
+        return;
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        quickSort(nums,0,n-1);
+        return nums;
+    }
+};
