@@ -1,0 +1,16 @@
+// User function template for C++
+
+    string removeDuplicates(string &s) {
+     unordered_map<char,int>mp;
+     string str ="";
+     
+     for(int i =0 ;i<s.length();i++){
+         if(mp.find(s[i])==mp.end()){
+             mp[s[i]]++;
+             str.push_back(s[i]);
+         }
+         
+     }
+     return str;
+        
+    }
