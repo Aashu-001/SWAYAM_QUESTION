@@ -1,0 +1,19 @@
+class Solution {
+  public:
+  int findExp(int n,int rev){
+      if(rev == 0) return 1;
+      
+      return n*findExp(n,rev-1);
+  }
+    int reverseExponentiation(int n) {
+        int num = n;
+        int rev =0;
+        while(num){
+            int rem = num%10;
+            rev = rev*10+rem;
+            num = num/10;
+        }
+        return findExp(n,rev);
+        
+    }
+};
