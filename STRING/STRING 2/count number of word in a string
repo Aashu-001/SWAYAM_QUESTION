@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int CountWord(string str){
+    if(str.empty()) return 0;
+    int str_len = str.length();
+     int space =0;
+     int flag  =1;
+    for(int i =0;i<str_len;i++){
+        if(str[i] == ' '){
+            if(i == str_len -1){
+              flag = 0;
+            }
+            if(i == 0) continue;
+         space++;
+        }
+      
+    }
+    if(flag ) space++;
+    return space;
+}
+
+int main(){
+    string str;
+    getline(cin,str);
+    int words = CountWord(str);
+
+    cout<<words;
+    return 0;
+}
