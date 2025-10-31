@@ -1,0 +1,17 @@
+bool isAlphabet(char ch){
+  if(ch >= 'A' && ch<= 'Z' || ch >= 'a' && ch <= 'z'){
+    return true;
+  }
+return false;
+}
+
+string RemoveExceptAlpabet(string str){
+
+   for(int i =0;i<str.length();i++){
+      if(!isAlphabet(s[i])){
+        s.erase(s.begin()+i);
+      }
+    }
+
+return str;
+}
