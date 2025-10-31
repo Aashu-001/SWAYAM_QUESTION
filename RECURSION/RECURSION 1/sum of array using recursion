@@ -1,0 +1,15 @@
+// User function template for C++
+class Solution {
+  public:
+    // Function to return sum of elements
+    int sumArray(vector<int>&arr,int index){
+        if(index == arr.size()) return 0;
+        
+        return arr[index]+sumArray(arr,index+1);
+    }
+    int arraySum(vector<int>& arr) {
+        
+        return sumArray(arr,0);
+        
+    }
+};
