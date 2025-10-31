@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+char getMaxOccurringChar(string str){
+  sort(str.begin(),str.end());
+  int currCnt = 1;
+  int maxCnt =1;
+  int maxCh = str[0];
+
+  for(int i = 1;i<str.length();i++){
+      if(str[i] == str[i-1]){
+          currCnt ++;
+      }
+      else{
+        if(maxCnt < currCnt){
+            maxCnt = currCnt;
+            currCnt =1;
+            maxCh = str[i-1];
+        }
+        
+      }
+  }
+        if(maxCnt < currCnt){
+            maxCnt = currCnt;
+            maxCh = str[str.length()-1];
+        }
+        else if(maxCnt == currCnt){
+            if(maxCh > str[str.length()-1]) maxCh = str[str.length()-1];
+        }
+        
+        return maxCh;
+};
+
+int main() {
+    // Input string
+    string s;
+    cin>>s;
+
+
+    // Call function
+    char ans = getMaxOccurringChar(s);
+
+    // Print result
+    cout<< ans << endl;
+    return 0;
+}
