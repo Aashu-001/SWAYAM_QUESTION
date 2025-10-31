@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    // Function to count the number of digits in n that evenly divide n
+     int findEvenlyDivides(int n,int forRem){
+         if(forRem == 0) return 0;
+         
+         int rem = forRem%10;
+         if(rem != 0 && n%rem == 0 ) return 1+findEvenlyDivides(n,forRem/10);
+          return findEvenlyDivides(n,forRem/10);
+     }
+    int evenlyDivides(int n) {
+      
+        return findEvenlyDivides(n,n);
+    }
+};
