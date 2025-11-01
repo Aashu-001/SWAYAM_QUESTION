@@ -1,0 +1,87 @@
+class List {
+public:
+    int data;
+    List* next;
+    List(int val) {
+        data = val;
+        next = NULL;
+    }
+};
+
+class MyLinkedList {
+public:
+    List* head;
+
+    MyLinkedList() {
+        head = NULL;
+    }
+
+    int get(int index) {
+        List* temp = head;
+        while (temp && index--) {
+            temp = temp->next;
+        }
+        return temp ? temp->data : -1;
+    }
+
+    void addAtHead(int val) {
+        List* node = new List(val);
+        node->next = head;
+        head = node;
+    }
+
+    void addAtTail(int val) {
+        List* node = new List(val);
+        if (!head) {
+            head = node;
+            return;
+        }
+        List* temp = head;
+        while (temp->next) {
+            temp = temp->next;
+        }
+        temp->next = node;
+    }
+
+    void addAtIndex(int index, int val) {
+        if (index == 0) {
+            addAtHead(val);
+            return;
+        }
+
+        List* curr = head;
+        while (curr && --index) {
+            curr = curr->next;
+        }
+
+        if (!curr) return; // index out of range
+
+        List* node = new List(val);
+        node->next = curr->next;
+        curr->next = node;
+    }
+
+    void deleteAtIndex(int index) {
+        if (!head) return;
+
+        if (index == 0) {
+            List* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+
+        List* curr = head;
+        while (curr->next && --index) {
+            curr = curr->next;
+        }
+
+        if (!curr->next) return;
+
+        List* delNode = curr->next;
+        curr->next = curr->next->next;
+        delete delNode;
+    }
+};
+
+
