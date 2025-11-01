@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+        int mx_index = 0;
+         int mx_count = 0;
+         int row = mat.size();
+         int col = mat[0].size();
+         for(int i =0 ;i< row;i++){
+            int curr =0;
+            for(int j =0;j< col ;j++){
+                if(mat[i][j] == 1){
+                    curr++;
+                }
+            }
+            if(curr > mx_count){
+                mx_count = curr;
+                mx_index = i;
+            }
+         }
+         return {mx_index,mx_count};
+    }
+};
