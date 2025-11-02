@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int aggressiveCows(vector<int> &stalls, int k) {
+        sort(stalls.begin(), stalls.end());
+        int n = stalls.size();
+        
+        int beg = 1;  // minimum possible distance
+        int end = stalls[n - 1] - stalls[0];
+        int ans = 0;
+        
+        while (beg <= end) {
+            int mid = beg + (end - beg) / 2;
+            int count_cow = 1;
+            int last = stalls[0];
+            
+            for (int i = 1; i < n; i++) {
+                if (stalls[i] - last >= mid) {
+                    count_cow++;
+                    last = stalls[i];
+                }
+            }
+            
+            if (count_cow >= k) {
+                ans = mid;       // possible, try for larger distance
+                beg = mid + 1;
+            } else {
+                end = mid - 1;   // not possible, reduce distance
+            }
+        }
+        
+        return ans;
+    }
+};
