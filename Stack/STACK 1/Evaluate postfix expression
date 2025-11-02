@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    int floor_div(int a, int b) {
+        int q = a / b;
+        int r = a % b;
+        if (r != 0 && ((r < 0) != (b < 0)))
+            q--;
+        return q;
+    }
+
+    string getEval(const string &opr, const string &a, const string &b) {
+        int x = stoi(a);
+        int y = stoi(b);
+        int ans;
+
+        if (opr == "+") ans = x + y;
+        else if (opr == "-") ans = x - y;
+        else if (opr == "*") ans = x * y;
+        else if (opr == "/") ans = floor_div(x, y);
+        else if (opr == "^") ans = pow(x, y);
+        else ans = 0;
+
+        return to_string(ans);
+    }
+
+    bool isNumber(const string &s) {
+        if (s.empty()) return false;
+        int start = 0;
+        if (s[0] == '-' || s[0] == '+') start = 1;
+        if (start == s.size()) return false;
+        return all_of(s.begin() + start, s.end(), ::isdigit);
+    }
+
+    int evaluatePostfix(vector<string>& arr) {
+        stack<string> st;
+
+        for (string &s : arr) {
+            if (isNumber(s)) {
+                st.push(s);
+            } else {
+                string b = st.top(); st.pop();
+                string a = st.top(); st.pop();
+                st.push(getEval(s, a, b));
+            }
+        }
+
+        return stoi(st.top());
+    }
+};
