@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define STACK_MAX_SIZE 101
+char stackArray[STACK_MAX_SIZE];
+int stackTop = -1;
+
+bool isStackEmpty() {
+    return stackTop == -1;
+}
+
+bool isStackFull() {
+    return stackTop >= STACK_MAX_SIZE - 1;
+}
+
+void pushToStack(char element) {
+    if(stackTop >= STACK_MAX_SIZE) 
+     {cout<<"Stack is full";
+     return;
+     }
+    // If stack is full (check using isFull function)
+    // Then print "Stack is full"
+    stackArray[stackTop+1] = element;
+    stackTop=stackTop+1;
+    // Otherwise add the next element at top + 1 and update top
+    
+}
+
+char popFromStack() {
+    if(stackTop == -1){
+        cout<<"Stack is empty";
+        return -1;
+    }
+    // If the stack is empty (check using isEmpty function)
+    // Then print "Stack is empty" and return '-1'
+    // Otherwise return the element at the top
+    char tp = stackArray[stackTop] ;
+    stackTop = stackTop-1;
+    return tp;
+    // But reduce top before returning the element
+    
+}
+
+int main() {
+    string inputString = "Hello, World!";
+    int inputLength = inputString.length();
+
+    // Push each character onto the stack
+    for (int i = 0; i < inputLength; i++) {
+        char currentChar = inputString[i];
+        pushToStack(currentChar);
+    }
+
+    // Pop the characters from the stack to construct the reversed string
+    string reversedString;
+    while (!isStackEmpty()) {
+        reversedString.push_back(popFromStack());
+    }
+    cout << reversedString << "\n";
+    return 0;
+}
