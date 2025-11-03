@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+       unordered_map<char ,int>mp;
+       int ans = 0;
+       int beg =0;
+       int end = 0;
+       int n = s.length();
+       while(end<n){
+        //whenever s[end] already available in the map then 
+        if(mp.count(s[end])){
+            //here we have to put our beg just ahead of the point which have the char 
+            // EDGE: if(beg -> second b ) but mp shows already visited then it goes back to the first_a which will be wrong 
+              // thatswhy we have use the max 
+          beg = max(mp[s[end]]+1,beg);
+          
+        }
+        //then mark the position to the current position in the unordered_map
+         mp[s[end]] = end;
+         
+         ans = max(ans,end-beg+1);
+         end = end+1;
+         
+        }
+    return ans;
+}
+};  
