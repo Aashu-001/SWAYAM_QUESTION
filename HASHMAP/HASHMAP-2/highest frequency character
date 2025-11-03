@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    char getMaxOccuringChar(string& s) {
+       
+       unordered_map<char,int>mp;
+       for(int i = 0 ;i< s.length();i++){
+           mp[s[i]]++;
+       }
+       int mxCount =0;
+       char mxChar= s[0];
+       for(auto& ch : mp){
+           if(ch.second > mxCount){
+               mxCount = ch.second;
+               mxChar = ch.first;
+           }
+           else if(ch.second == mxCount){
+               if(ch.first < mxChar){
+                   mxChar = ch.first;
+               }
+           }
+       }
+       return mxChar;
+        
+    }
+};
