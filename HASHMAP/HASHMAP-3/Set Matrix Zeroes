@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int row=matrix.size();
+        int col=matrix[0].size();
+        vector<int> rowF(row, 0);
+        vector<int> colF(col, 0);
+       
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (matrix[i][j] == 0) {
+                    rowF[i] = 1;  
+                    colF[j] = 1;  
+                }
+            }
+        }
+       for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (rowF[i] || colF[j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+     
+    }
+};
