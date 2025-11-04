@@ -1,0 +1,68 @@
+/*
+class Node {
+   public:
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+  public:
+  int findNodes(Node*node){
+      if(node == NULL){
+          return 0;
+      }
+      return 1+findNodes(node->left)+findNodes(node->right);
+  }
+    bool isHeap(Node* tree) {
+        // code here
+        if(!tree) return true;
+        queue<Node*>q;
+        q.push(tree);
+        int total_nodes = findNodes(tree);
+        int count = 1;
+        while(!q.empty()){
+            int si = q.size();
+            int flag =0;
+            while(si--){
+                Node* samp = q.front();
+                q.pop();
+                if(samp->left){
+                if(samp->left->data < samp->data){
+                    q.push(samp->left);
+                    count++;
+                }
+                else{
+                  
+                    return false;
+                }
+                }
+                else {
+                    flag =1;
+                    break;
+                } 
+                if(samp->right){
+                if(samp->right->data < samp->data){
+                    q.push(samp->right);
+                    count++;
+                }
+                else{
+                    return false;
+                }
+                }
+                else {
+                   flag =1;
+                    break;
+                }
+            }
+            if(flag) break;
+        }
+        return count == total_nodes;
+    }
+};
