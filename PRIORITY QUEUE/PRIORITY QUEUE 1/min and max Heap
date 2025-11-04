@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+
+void insert_Heap(int val,vector<int>&pq){
+	pq.push_back(val);
+	int si = pq.size();
+	int index = si-1;
+	while(index >0){
+		int parent = (index-1)/2;
+		if(pq[parent] < pq[index]){
+			swap(pq[parent],pq[index]);
+			index = parent;
+		}
+		else{
+			break;
+		}
+		
+	};
+}
+vector<int> buildHeap(vector<int> arr, int n)
+{	vector<int>pq;
+	for(int i = 0;i < n;i++){
+		insert_Heap(arr[i],pq);
+	}
+	return pq;
+}
