@@ -1,0 +1,29 @@
+class Solution {
+  public:
+  int find2(int n){
+      int ind = 0;
+      while(n >= (1<<ind)){
+          ind++;
+      }
+      return ind;
+  }
+    int toggleBits(int n, int l, int r) {
+        // code here
+        int bit = find2(n);
+        int ind_mx = bit-l+1;
+        int ind_mn = bit-r+1;
+        int ind = 1;
+        int val = 0;
+        while(ind <= bit){
+            val = val<<1;
+            if(ind >= ind_mn && ind <= ind_mx){
+                val = val | 1;
+            }
+            else{
+                val = val | 0;
+            }
+            ind++;
+        }
+        return val ^ n;
+    }
+};
