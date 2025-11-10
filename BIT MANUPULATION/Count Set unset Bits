@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    int find2(int n){
+        int inc =0;
+        while(n >= (1 << inc)){
+            inc++;
+        }
+        return inc-1;
+    }
+    int countSetBits(int n) {
+        if(n == 0){
+            return 0;
+        }
+      int bit = find2(n);
+      // no of set bits in the max 2 power 
+      int bits_max2 =  bit*(1<<(bit-1));
+      //take 1 of the 8,16,32
+      int remain_num = n - (1<<bit);
+      //add the reamining as will have set bit at begin but after that same sequence will form
+      int same_for_remain = countSetBits(remain_num);
+      
+      return bits_max2 +1+n - (1<<bit) + same_for_remain;
+      
+      
+    }
+};
