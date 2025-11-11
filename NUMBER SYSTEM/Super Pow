@@ -1,0 +1,21 @@
+class Solution {
+public:
+int findPw(int a,int count){
+    int mod = 1337;
+    a= a%mod;
+    int result = 1;
+    for(int i = 0;i<count;i++){
+        result = (a*result)%mod;
+       
+    }
+     return result;
+}
+    int superPow(int a, vector<int>& b) {
+        int mod = 1337;
+        if(b.empty()) return 1;
+        int num = b.back();
+        b.pop_back();
+
+        return findPw(superPow(a,b),10)*findPw(a,num)%mod;
+    }
+};
