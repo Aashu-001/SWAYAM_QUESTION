@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n= nums.size();
+        vector<vector<int>>ans;
+        for(int i = 0;i<(1<<n);i++){
+            string bitmask = bitset<32>(i).to_string().substr(32-n);
+            vector<int>samp;
+            for(int i =0 ;i< n;i++){
+              if(bitmask[i] == '1'){
+                samp.push_back(nums[i]);
+              }
+            }
+          ans.push_back(samp);
+        }
+        return ans;
+    }
+};
