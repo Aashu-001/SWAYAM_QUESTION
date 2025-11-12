@@ -1,0 +1,22 @@
+class Solution {
+public:
+void find_sub(vector<int>&nums,int index,vector<int>&samp,vector<vector<int>>&ans){
+   if(index == nums.size()){
+    ans.push_back(samp);
+    return ;
+   }
+
+  //skip 
+  find_sub(nums,index+1,samp,ans);
+  //add
+  samp.push_back(nums[index]);
+  find_sub(nums,index+1,samp,ans);
+  samp.pop_back();
+}
+    vector<vector<int>> subsets(vector<int>& nums) {
+       vector<vector<int>>ans;
+       vector<int>samp;
+       find_sub(nums,0,samp,ans);
+       return ans;
+    }
+};
