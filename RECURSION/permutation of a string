@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void find(vector<int> nums,vector<vector<int>>&ans,int index){
+        if(nums.size() == index){
+            ans.push_back(nums);
+            return;
+        }
+
+        for(int i =index;i<nums.size();i++){
+            swap(nums[i],nums[index]);
+            find(nums , ans, index+1);
+            swap(nums[i],nums[index]);
+            }
+        
+        return;
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>>ans;
+        // vector<int>curr;
+        // vector<bool>visited(n,0);
+        find(nums,ans,0);
+
+        return ans;
+    }
+};
