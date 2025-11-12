@@ -1,0 +1,35 @@
+class Solution {
+  public:
+  void find(vector<int>&arr,int ind,vector<int>&samp,vector<vector<int>>&ans){
+      if(ind == arr.size()){
+          ans.push_back(samp);
+          return;
+      }
+      
+      //not_take
+       
+      //take
+      samp.push_back(arr[ind]);
+       find(arr,ind+1,samp,ans);
+      samp.pop_back();
+      int index = ind;
+       while(ind < arr.size() && arr[ind] == arr[index]){
+         ind++;
+        }
+       if(ind >= arr.size()){ 
+         ans.push_back(samp);
+         return ;
+        }
+     
+       find(arr,ind,samp,ans);
+      return;
+  }
+    vector<vector<int>> findSubsets(vector<int>& arr) {
+        // code here
+        sort(arr.begin(),arr.end());
+        vector<int>samp;
+        vector<vector<int>>ans;
+        find(arr,0,samp,ans);
+        return ans;
+    }
+};
