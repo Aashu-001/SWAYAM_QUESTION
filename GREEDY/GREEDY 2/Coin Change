@@ -1,0 +1,22 @@
+int coinChange(vector<int>& coins, int amount){
+int ind = coins.size();
+vector<vector<int>>dp(ind+1,vector<int>(amount+1,0));
+for(int i =0 ;i<=amount;i++){
+  dp[0][i] = 1e8;
+}
+for(int indx = 1;indx<=ind;indx++){
+  for(int amont = 1;amont<=amount;amont++){
+     if(amont <  coins[indx-1]){
+         dp[indx][amont] = dp[indx-1][amont];
+     }
+     else {
+          int notconsiderCoin = dp[indx-1][amont]; 
+          int ConsiderCoin = 1 + dp[indx][amont - coins[indx-1]];
+          dp[indx][amont] = min(notconsiderCoin,ConsiderCoin);
+      }
+      
+  }
+  }
+   return dp[ind][amount] == 1e8 ? -1 : dp[ind][amount] ;
+}
+};
