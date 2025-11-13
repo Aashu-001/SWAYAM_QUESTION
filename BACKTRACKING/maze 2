@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int shortestDistance(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int n = maze.size(), m = maze[0].size();
+        vector<vector<int>> dist(n, vector<int>(m, INT_MAX));
+        dist[start[0]][start[1]] = 0;
+
+        priority_queue<pair<int, pair<int, int>>,
+                       vector<pair<int, pair<int, int>>>,
+                       greater<pair<int, pair<int, int>>>> pq;
+
+        pq.push({0, {start[0], start[1]}});
+
+        int dx[4] = {1, -1, 0, 0};
+        int dy[4] = {0, 0, 1, -1};
+
+        while (!pq.empty()) {
+            auto [currDist, pos] = pq.top();
+            pq.pop();
+
+            int x = pos.first, y = pos.second;
+
+            // If we reached destination
+            if (x == destination[0] && y == destination[1]) return currDist;
+
+            // Skip if we already found a better path
+            if (currDist > dist[x][y]) continue;
+
+            // Explore all 4 directions
+            for (int k = 0; k < 4; ++k) {
+                int nx = x, ny = y, steps = 0;
+
+                // Roll the ball until it hits a wall
+                while (nx + dx[k] >= 0 && nx + dx[k] < n &&
+                       ny + dy[k] >= 0 && ny + dy[k] < m &&
+                       maze[nx + dx[k]][ny + dy[k]] == 0) {
+                    nx += dx[k];
+                    ny += dy[k];
+                    steps++;
+                }
+
+                // If this path is shorter, update and push
+                if (currDist + steps < dist[nx][ny]) {
+                    dist[nx][ny] = currDist + steps;
+                    pq.push({dist[nx][ny], {nx, ny}});
+                }
+            }
+        }
+
+        // If destination unreachable
+        return -1;
+    }
+};
