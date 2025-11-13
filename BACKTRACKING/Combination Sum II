@@ -1,0 +1,33 @@
+class Solution {
+public:
+void find(vector<int>& candidates, int target,int ind,vector<int>&samp,vector<vector<int>>&ans){
+    if(target == 0){
+        ans.push_back(samp);
+        return;
+    }
+    if(ind >= candidates.size()){
+        return ;
+    }
+    //take 
+    if(target >= candidates[ind]){
+        samp.push_back(candidates[ind]);
+        find(candidates,target-candidates[ind],ind+1,samp,ans);
+        samp.pop_back();
+    }
+     int index = ind;
+    while(index<candidates.size()&& candidates[ind] == candidates[index]){
+        index++;
+    }
+    if(index>=candidates.size()) return;
+    find(candidates,target,index,samp,ans);
+    }
+    
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>samp;
+        sort(candidates.begin(),candidates.end());
+        find(candidates,target,0,samp,ans);
+        return ans;
+    }
+};
