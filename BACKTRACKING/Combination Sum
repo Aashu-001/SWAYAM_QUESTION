@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void find(vector<int>& candidates, int target,int index,vector<int>&samp,vector<vector<int>>&ans){
+        if(target == 0){
+            ans.push_back(samp);
+            return ;
+        }
+        if(index == candidates.size()){
+            return;
+        }
+        //not consider
+        find(candidates,target,index+1,samp,ans);
+        //consider
+        if(target >= candidates[index]){
+        samp.push_back(candidates[index]);
+         find(candidates,target-candidates[index],index,samp,ans);
+         samp.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>samp;
+        find(candidates,target,0,samp,ans);
+        return ans;
+    }
+};
