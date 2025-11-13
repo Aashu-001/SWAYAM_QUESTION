@@ -1,0 +1,77 @@
+class Solution {
+public:
+// check the row 
+    bool uniqrow(vector<vector<char>>& board,char c,int row,int col){
+       int count =0;
+       for(int i =0;i<9;i++){
+         if(col != i && board[row][i] == c){
+            count++;
+         }
+       }
+       return count == 0;
+    }
+  //check the column 
+    bool uniqcol(vector<vector<char>>& board,char c,int row,int col){
+     int count =0;
+       for(int i =0;i<9;i++){
+         if(row != i && board[i][col] == c){
+            count++;
+         }
+       }
+       return count == 0;
+    }
+
+//check the the 3*3 matrix
+    bool seperation(vector<vector<char>>& board,char c,int row,int col){
+        int r=row;
+        row = row/3;
+        int row_s=3*row;
+        int row_e=3*(row+1)-1;
+        
+        int co = col;
+        col = col/3;
+        int col_s = 3*col;
+        int col_e = 3*(col+1)-1;
+         int count =0;
+        for(int i = row_s;i<=row_e;i++){
+            for(int j = col_s;j<=col_e;j++){
+              if(!((i == r) && (j == co)) && board[i][j] == c){
+                count++;
+              }
+            }
+        }
+        return count == 0;
+    }
+    bool check(vector<vector<char>>& board,char c,int row,int col){
+        if(!uniqrow(board,c,row,col)||
+            !uniqcol(board,c,row,col )||
+            !seperation(board,c,row,col)){
+                return false;
+            }
+            return true;
+    }
+    bool solve(vector<vector<char>>& board){
+        for(int i =0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j] == '.'){
+                  
+                    for(int d =1;d<=9;d++){
+                          char ch = d+'0';
+                        if(check(board,ch,i,j)){
+                            board[i][j] = ch;
+                            if(solve(board)) return true;
+                            board[i][j] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    void solveSudoku(vector<vector<char>>& board) {
+       solve(board);
+       
+    } 
+};
