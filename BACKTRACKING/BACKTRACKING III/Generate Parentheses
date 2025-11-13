@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void find_paren(int n,int left,int right,string& str,vector<string>&ans){
+        if(left == n && right == n){
+            ans.push_back(str);
+            return ;
+        }
+        if(right < n && (right < left)){
+            str.push_back(')');
+            find_paren(n,left,right+1,str,ans);
+            str.pop_back();
+        }
+        if(left < n){
+            str.push_back('(');
+            find_paren(n,left+1,right,str,ans);
+            str.pop_back();
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        string str ="";
+        vector<string>ans;
+       find_paren(n,0,0,str,ans);
+       return ans;
+    }
+};
