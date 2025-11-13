@@ -1,0 +1,54 @@
+class Solution {
+public:
+    bool checkUpperLeft(int i, int j, vector<string>& mat, int n) {
+        while (i >= 0 && j >= 0) {
+            if (mat[i][j] == 'Q') return false;
+            i--; j--;
+        }
+        return true;
+    }
+
+    bool checkUpperRight(int i, int j, vector<string>& mat, int n) {
+        while (i >= 0 && j < n) {
+            if (mat[i][j] == 'Q') return false;
+            i--; j++;
+        }
+        return true;
+    }
+
+    bool checkUpperTop(int i, int j, vector<string>& mat, int n) {
+        while (i >= 0) {
+            if (mat[i][j] == 'Q') return false;
+            i--;
+        }
+        return true;
+    }
+
+    bool checkCondition(int i, int j, vector<string>& mat, int n) {
+        return checkUpperLeft(i, j, mat, n) &&
+               checkUpperRight(i, j, mat, n) &&
+               checkUpperTop(i, j, mat, n);
+    }
+
+    void solve(int n, vector<vector<string>>& mat, int row, vector<string>& one_schene) {
+        if (row == n) {
+            mat.push_back(one_schene);
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (checkCondition(row, i, one_schene, n)) {
+                one_schene[row][i] = 'Q';
+                solve(n, mat, row + 1, one_schene);
+                one_schene[row][i] = '.';
+            }
+        }
+    }
+
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> mat;
+        vector<string> one_schene(n, string(n, '.'));
+        solve(n, mat, 0, one_schene);
+        return mat;
+    }
+};
