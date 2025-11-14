@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    int find(int W,vector<int>&val,vector<int>&wt,int index){
+        if(index == val.size()) return 0;
+        
+        //take 
+        int take = 0;
+        if(W >= wt[index]){
+            take = val[index]+ find(W - wt[index],val,wt,index+1);
+        }
+        int notTake = find(W,val,wt,index+1);
+        return max(take ,notTake);
+    }
+    int knapsack(int W, vector<int> &val, vector<int> &wt) {
+        // code here
+        int n = val.size();
+        vector<vector<int>>dp(n+1,vector<int>(W+1,0));
+        
+        for(int index = n-1;index>=0;index--){
+            for(int w = 1;w<=W;w++){
+                 int take = 0;
+                    if(w >= wt[index]){
+                        take = val[index]+ dp[index+1][w-wt[index]];
+                    }
+                    int notTake = dp[index+1][w] ;
+                    dp[index][w] = max(take ,notTake);
+                        }
+        }
+        return dp[0][W];
+    }
+};
