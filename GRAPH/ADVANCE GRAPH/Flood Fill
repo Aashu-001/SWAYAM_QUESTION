@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int r[4] = {0,0,1,-1};
+    int c[4] = {1,-1,0,0};
+
+    bool check(int i,int j,int row,int col){
+        return (i > -1 && j > -1 && i < row && j < col);
+    }
+    void dfs(int sr,int sc, int color,vector<vector<int>>&image,int curr){
+        image[sr][sc] = color;
+       for(int k =0;k<4;k++){
+         if(check(sr+r[k],sc+c[k],image.size(),image[0].size())){
+            if(image[sr+r[k]][sc+c[k]] == curr){
+               dfs(sr+r[k],sc+c[k],color,image,curr);
+            }
+         }
+       }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+       int curr = image[sr][sc];
+       if(color == curr) return image;
+        dfs(sr,sc,color,image,curr);
+        return image;
+    }
+};
