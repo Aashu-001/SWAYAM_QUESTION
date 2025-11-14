@@ -1,0 +1,23 @@
+class Solution {
+public:
+void dfs(int node,vector<vector<int>>&graph,vector<int>&samp,vector<vector<int>>&ans){
+    if(node == graph.size()-1){
+        ans.push_back(samp);
+        return ;
+    }
+    for(int i = 0 ;i<graph[node].size();i++){
+        int neigh = graph[node][i];
+        samp.push_back(neigh);
+        dfs(neigh,graph,samp,ans);
+        samp.pop_back();
+    }
+    return ;
+}
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>>ans;
+        vector<int>samp;
+        samp.push_back(0);
+        dfs(0,graph,samp,ans);
+        return ans;
+    }
+};
