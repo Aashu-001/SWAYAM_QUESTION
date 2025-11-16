@@ -1,0 +1,19 @@
+ int change(int targSum, vector<int>& coins) {
+        int n =coins.size();
+        vector<vector<int>>dp(n+1,vector<int>(targSum+1,-1));
+        for(int i = 0;i<=n;i++){
+            dp[i][0] = 1;
+        }
+        for(int i = n-1;i>=0;i--){
+            for(int amount = 1;amount<=targSum;amount++){
+                 int take = 0;
+                if(amount >= coins[i]){
+                   take = dp[i][amount-coins[i]];
+                   }
+                int notTake = dp[i+1][amount];
+             dp[i][amount] =  (take == -1?0:take)+(notTake == -1 ?0:notTake);
+            }
+        }
+        return dp[0][targSum];
+    }
+};
