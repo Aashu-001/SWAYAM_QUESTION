@@ -1,0 +1,44 @@
+class Solution {
+public:
+   int r[4]= {0,0,-1,1};
+   int c[4] = {-1,1,0,0};
+   bool checkInner(int i,int j,int row,int col){
+    return i>-1 && j > -1 && i <row && j < col;
+   }
+   int find_gold(int i ,int j ,int row,int col,vector<vector<int>>& grid){
+       if(i < 0 || j < 0 || i >= row || j >= col){
+        return 0;
+       }
+        int val = grid[i][j] ;
+        grid[i][j] = 0;
+       int ans = 0;
+      for(int k =0; k< 4;k++){
+       int rw = i+r[k];
+       int cl = j+c[k];
+       if(checkInner(rw,cl,row,col)){
+        if(grid[rw][cl] != 0){
+            ans = max(ans,find_gold(rw,cl,row,col,grid));
+        }
+       }
+      }
+      grid[i][j]= val;
+      return grid[i][j] + ans;
+
+   }
+    int getMaximumGold(vector<vector<int>>& grid) {
+        int n =grid.size();
+        int m = grid[0].size();
+        int ans = 0;
+        for(int i =0 ;i< n;i++){
+            for(int j =0;j<m;j++){
+                if(grid[i][j] != 0){
+                    // int val = grid[i][j];
+                    // grid[i][j] =0;
+                ans = max(ans ,find_gold(i ,j , n,m,grid));
+                // grid[i][j] = val;
+                }
+            }
+        }
+        return ans;
+    }
+};
