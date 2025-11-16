@@ -1,0 +1,59 @@
+class Solution {
+public:
+    bool isPalendrom(string &s,int beg ,int end,vector<vector<int>>&dp){
+         if(beg >= end) return true;
+         if(dp[beg][end]!=-1) return dp[beg][end];
+         if(s[beg] != s[end]) return dp[beg][end] =  false;
+         return dp[beg][end] =  isPalendrom(s,beg+1,end-1,dp);
+    }
+    std::string longestPalindrome(std::string s) {
+       int string_len = s.length();
+int beg = 0;
+int end = 0; 
+int len = 1;
+vector<vector<int>>dp(string_len,vector<int>(string_len,-1));
+  for(int i =0;i< string_len;i++){
+     for(int j = i;j<string_len;j++){
+         if(isPalendrom(s,i,j,dp)){
+           if(j-i+1 > len){
+               beg = i;
+               end = j;
+               len = j-i+1;
+            }
+           }
+        }
+    }
+
+     return s.substr(beg,end-beg+1);
+
+    }
+};
+******************************************************************************************************************
+class Solution {
+public:
+    string find(int beg,int end,string s){
+        while(beg >= 0 && end < s.length() && s[beg] == s[end]){
+            beg--;
+            end++;
+        }
+        return s.substr(beg+1,end-beg-1);
+
+    }
+    string longestPalindrome(string s) {
+        string ans = "";
+
+        int n = s.length();
+        for(int i =0 ;i< n-1;i++){
+            string odd = find(i,i,s);
+            if(odd.size() > ans.size()){
+                ans = odd;
+            }
+            string even = find(i,i+1,s);
+            if(even.size() > ans.size()){
+                ans = even;
+            }
+
+        }
+        return ans;
+    }
+};
