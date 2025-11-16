@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int find(int index, int num ,vector<int>nums , vector<int>&dp){
+        if(index >=num){
+            return 0;
+        }
+        if(dp[index] != -1){
+            return dp[index];
+        }
+        //stole the even houses
+        int stole = nums[index] + find(index+2 , num, nums , dp);
+        //first get skip and try to stole for the odd one
+        int skip = 0 + find(index+1 , num ,nums, dp);
+        //from each return the max
+        //basically it is for the max between the odd and even 
+        return  dp[index] = max(stole,skip);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>dp(n+2,-1);
+        dp[n] = 0;
+        dp[n+1] = 0;
+        return find(0,n,nums,dp);
+    }
+};
+******************************************************************************
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+       
+        // arr[n+2] {1,2,4,5,0,0};
+        // basically here last ke do ko initialise kiya 0 se
+        int third = 0;
+        int second = 0;
+        int first;
+        // back se start kiya 
+        for(int i = n-1 ;i>=0;i--){
+            first=max( nums[i]+third,second);
+            third = second;
+            second = first;
+           
+        }
+       return second;
+    }
+};
