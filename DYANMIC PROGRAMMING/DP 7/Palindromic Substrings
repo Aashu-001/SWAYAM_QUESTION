@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isPalendrom(string s,int beg ,int end,vector<vector<int>>&dp){
+        if(beg >= end) return true;
+        if(dp[beg][end] != -1) return dp[beg][end];
+        if(s[beg] != s[end] ) return false;
+        return dp[beg][end] = isPalendrom(s,beg+1,end-1,dp);
+   }
+ int countSubstrings(string s) {
+        int len = s.length();
+         int count =0;
+         vector<vector<int>>dp(len+1,vector<int>(len+1,1));
+     for(int beg = 0;beg < len;beg++){
+        for(int end = beg;end<len;end++){
+         if(s[beg]!= s[end] ) 
+            dp[beg][end] = 0;
+        else{
+             dp[beg][end] = dp[beg+1][end-1];
+        }
+        if(dp[beg][end] == 1) count++;
+     } 
+    }
+return count;
+}
+};
