@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+       
+        // arr[n+2] {1,2,4,5,0,0};
+        // basically here last ke do ko initialise kiya 0 se
+        int third = 0;
+        int second = 0;
+        int first;
+        // back se start kiya 
+        for(int i = n-1 ;i>=0;i--){
+            first=max( nums[i]+third,second);
+            third = second;
+            second = first;
+           
+        }
+       return second;
+    }
+};
