@@ -1,0 +1,54 @@
+class Solution {
+public:
+int find_sq(int n,vector<int>&dp){
+    if(n == 0){
+        return 0;
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    int count = 1e6;
+    for(int i =1 ;i*i<=n;i++){
+       if(n >= i*i){
+        count = min(count,find_sq(n-i*i,dp));
+       }
+    }
+    return dp[n] =  1+count;
+}
+    int numSquares(int n) {
+        vector<int>dp(n+1,-1);
+        return find_sq(n,dp);
+    }
+};
+**************************************************************************
+class Solution {
+public:
+int find_sq(int n,vector<int>&dp){
+    if(n == 0){
+        return 0;
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    int count = 1e6;
+    for(int i =1 ;i*i<=n;i++){
+       if(n >= i*i){
+        count = min(count,find_sq(n-i*i,dp));
+       }
+    }
+    return dp[n] =  1+count;
+}
+    int numSquares(int n) {
+        vector<int>dp(n+1,0);
+        for(int index =1;index<=n;index++){
+            int count = 1e6;
+            for(int i =1 ;i*i<=index;i++){
+            if(n >= i*i){
+                count = min(count,dp[index-i*i]);
+            }
+          }
+          dp[index] = 1+count;
+        }
+        return dp[n];
+    }
+};
