@@ -1,0 +1,104 @@
+#include<iostream>
+using namespace std;
+
+class TrieNode{
+    public:
+    TrieNode*child[26];
+    bool IsEndofWord;
+     
+    TrieNode(){
+        for(int i =0;i<26;i++){
+            child[i] = NULL;
+        }
+        IsEndofWord = false;
+    }
+};
+
+class Trie{
+    TrieNode*root;
+    public:
+    Trie(){
+        root = new TrieNode();
+    }
+
+    void create(string word){
+         TrieNode*node = root;
+         for(char c: word){
+            int index = c-'a';
+            if(node->child[index] == NULL){
+               node->child[index] = new TrieNode();
+               node = node->child[index];
+            }
+            else{
+                node = node->child[index];
+            }
+         }
+        node->IsEndofWord = true;
+    }
+
+    bool search(string word){
+        TrieNode* node = root;
+        for(char c: word){
+            int index = c-'a'; 
+        if(node->child[index] == NULL){
+               return false;
+        }
+        node = node->child[index];
+    }
+    return node->IsEndofWord;
+ }
+
+
+
+    bool isEmpty(TrieNode*node){
+       for(int i =0;i<26 ;i++){
+        if(node->child[i]){
+            return false;
+        }
+    }
+       return true;
+    };
+    bool Delete(TrieNode*node,string word , int depth){
+        if(depth == word.size()){
+            if(node->IsEndofWord == 0){
+                return false;
+            }
+            node->IsEndofWord = 0;
+            //if given node does not have the child we can delete it 
+            return isEmpty(node);
+        }
+
+        int index = word[depth]-'a';
+        //character does not exist 
+        if(node->child[index] == NULL){
+            return false;
+        }
+        
+            bool isDeletable = Delete(node->child[index] ,word , depth+1);
+            if(isDeletable){
+                delete node->child[index];
+                node->child[index] = NULL;
+                return !node->IsEndofWord && isEmpty(node);
+            }
+        
+        return false;
+
+    }
+
+    void DeleteWord(string word){
+       Delete(root,word,0);
+    }
+};
+
+
+
+int main(){
+    Trie*tree = new Trie();
+    tree->create("apple");
+    tree->create("appex");
+    tree->create("hello");
+    tree->create("hell");
+    //  tree->DeleteWord("hell");
+    cout<<"is the world exist " <<tree->search("hell")<<endl;
+    return 0;
+}
