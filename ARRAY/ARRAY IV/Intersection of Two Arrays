@@ -7,13 +7,13 @@ public:
 
         int i = 0;
         int j =0;
-        vector<int>ans;
+        vector<int>ans1;
         int n = nums1.size();
         int m = nums2.size();
         while(i < n && j< m){
             if(nums1[i] == nums2[j]){
                 int samp = nums1[i];
-               ans.push_back(nums1[i]);
+               ans1.push_back(nums1[i]);
                while(i<n && j<m &&samp ==  nums1[i] && samp == nums2[j]){
                i++;
                j++;
@@ -26,7 +26,7 @@ public:
                 i++;
             }
         }
-        reverse(ans.begin(),ans.end());
-        return ans;
+        reverse(ans1.begin(),ans1.end());
+        return ans1;
     }
 };
