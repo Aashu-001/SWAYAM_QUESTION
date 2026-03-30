@@ -1,0 +1,14 @@
+Can't divide directly under mod
+Instead: a/b mod p = a * b^(p-2) mod p
+power(den, mod-2) = modular inverse of den
+So ans = C(n-1, k) mod (1e9+7)
+
+EXAMPLE:
+Normal math:   12 / 4 = 3
+Mod math:      12 % 7 = 5
+               4  % 7 = 4
+               5  / 4 = 1.25  ✗  (not an integer, wrong answer)
+
+*******************************************
+Mmod = 1000000007;
+long ans = (num * power(den, mod-2)) % mod;
